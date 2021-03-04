@@ -4,8 +4,8 @@ import random
 #continuar jogando, por padrão é 1 (True)
 cj = 1
 
-#placares (por padrão, 0)
-carap1 = coroap1 = carap2 = coroap2 = vp1 = vp2 = 0
+#pontuação (por padrão, 0)
+carap1 = coroap1 = carap2 = coroap2 = vp1 = vp2 = cdp = 0
 
 #definindo os players
 p1 = input("Nome do player 1: ")
@@ -17,7 +17,7 @@ while cj == 1:
     print()
 
     #escolhendo número aleatório entre 0 e 1
-    #obs: se for menor do que 0.5, será coroa; caso contrário, cara
+    #obs: se for menor do que 0.5, será coroa; se for maior, cara; e se for exatamente 0.5, empate
     r = random.random()
 
     #pergunta se continua jogando, se dar enter assume-se que sim
@@ -30,7 +30,7 @@ while cj == 1:
         cc = int(input("Qual a aposta do p1? (Cara = 1, Coroa = 2): ") or '1')
 
         #se apostar cara e der cara
-        if cc == 1 and r >= 0.5:
+        if cc == 1 and r > 0.5:
 
             #ipmrime resultado
             print("Cara")
@@ -48,7 +48,7 @@ while cj == 1:
             coroap2 = coroap2 + 1
 
         #se apostar coroa e der cara
-        if cc == 2 and r >= 0.5:
+        if cc == 2 and r > 0.5:
 
             #imprime resultado
             print("Cara")
@@ -62,6 +62,15 @@ while cj == 1:
 
             #adiciona 1 ao placar (coroa) do p1
             coroap1 = coroap1 + 1
+
+        #se a moeda cair em pé
+        if r == 0.5:
+
+            #imprime resultado
+            print("Então... caiu de pé: é empate")
+
+            #adiciona 1 na variavel caiu de pe (cdp)
+            cdp += 1
             
     #se não continuar jogando
     else:
@@ -84,6 +93,10 @@ print(p2,"acertou cara",carap2,"vezes e coroa",coroap2,"vezes!")
 print("Somando um total de",vp2,"pontos")
 print()
 
+#imprime, se ocorreu, quantas vezes a moeda caiu de pé
+if cdp > 0:
+    print("Incrivelmente, a moeda caiu de pé",cdp,"vez.")
+
 #imprime quem ganhou, ou se deu empate
 if vp1 > vp2:
     print(p1,"venceu!")
@@ -91,3 +104,16 @@ elif vp2 > vp1:
     print(p2,"venceu!")
 else:
     print(p1,"empatou com",p2)
+
+#declara e imprime duração do jogo (ddj)
+ddj = vp1 + vp2
+print("A moeda foi lançada",ddj,"vezes")
+print()
+if ddj > 50 and ddj < 99.5:
+    print("Ta maluco?")
+elif ddj > 99.5 and ddj < 499.5:
+    print("Não tem nada melhor para fazer não?")
+elif ddj > 499.5:
+    print("Sério, vai fazer outra coisa")
+else:
+    print("Obrigado por jogar : )")
